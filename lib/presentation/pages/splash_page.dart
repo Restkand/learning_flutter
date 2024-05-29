@@ -30,6 +30,13 @@ class SplashPage extends StatelessWidget {
               UIHelper.verticalSpace(10),
               ActionText(
                   onTap: () {
+                    AutoRouter.of(context).push(const ToDoRoute());
+                  },
+                  title: 'To Do List',
+                  desc: 'Saving To Do List'),
+              UIHelper.verticalSpace(10),
+              ActionText(
+                  onTap: () {
                     AutoRouter.of(context).push(const NewsRoute());
                   },
                   title: 'News',
