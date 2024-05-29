@@ -33,7 +33,7 @@ class SplashPage extends StatelessWidget {
                     AutoRouter.of(context).push(const NewsRoute());
                   },
                   title: 'News',
-                  desc: 'Uo to Date News')
+                  desc: 'Up to Date News')
             ],
           )),
     );
