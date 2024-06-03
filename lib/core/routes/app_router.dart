@@ -9,5 +9,6 @@ class AppRouter extends $AppRouter {
     AutoRoute(page: CalculatorRoute.page),
     AutoRoute(page: ToDoRoute.page),
     AutoRoute(page: NewsRoute.page),
+    AutoRoute(page: TimeRoute.page),
   ];
 }
