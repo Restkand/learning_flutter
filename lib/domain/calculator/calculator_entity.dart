@@ -37,52 +37,61 @@ class CalculatorEntity with _$CalculatorEntity {
         );
   }
 
-  // Either<String, Unit> get _emptyLeftErrorMsg {
-  //   return FormValidator.emptyValidator(leftValue).fold(
-  //     (failure) => failure.maybeWhen(
-  //       orElse: () => right(unit),
-  //       empty: () => left('Left form must be not empty'),
-  //     ),
-  //     (_) => right(unit),
-  //   );
-  // }
+  Either<String, Unit> get _emptyLeftErrorMsg {
+    return FormValidator.emptyValidator(leftValue).fold(
+      (failure) => failure.maybeWhen(
+        orElse: () => right(unit),
+        empty: () => left('Left form must be not empty'),
+      ),
+      (_) => right(unit),
+    );
+  }
 
-  // Either<String, Unit> get _emptyRightErrorMsg {
-  //   return FormValidator.emptyValidator(rightValue).fold(
-  //     (failure) => failure.maybeWhen(
-  //       orElse: () => right(unit),
-  //       empty: () => left('Right form must be not empty'),
-  //     ),
-  //     (_) => right(unit),
-  //   );
-  // }
+  Either<String, Unit> get _emptyRightErrorMsg {
+    return FormValidator.emptyValidator(rightValue).fold(
+      (failure) => failure.maybeWhen(
+        orElse: () => right(unit),
+        empty: () => left('Right form must be not empty'),
+      ),
+      (_) => right(unit),
+    );
+  }
 
-  // String? get textErrorMsg {
-  //   return _emptyLeftErrorMsg.andThen(() => _emptyRightErrorMsg).fold(
-  //         (errorMsg) => errorMsg,
-  //         (_) => null,
-  //       );
-  // }
-  //  ERROR di textErrorMsg andThen(() => _emptyRightErrorMsg) : the argument type 'either<string, unit> function' can't be assigned to the parameter type 'either<string, dynamic>'
+  Either<String, Unit> get _divisionByZeroErrorMsg {
+    return type == const CalculatorType.divide() && rightValue == "0"
+        ? left("Division by zero is not allowed")
+        : right(unit);
+  }
 
   String? get textErrorMsg {
-    // Memeriksa jika pembagian dengan nol
-    if (rightValue == "0" && type == const CalculatorType.divide()) {
-      return 'Cannot divide by zero';
-    }
-
-    // Memeriksa jika nilai kiri kosong
-    if (leftValue.isEmpty) {
-      return 'Left form must not be empty';
-    }
-
-    // Memeriksa jika nilai kanan kosong
-    if (rightValue.isEmpty) {
-      return 'Right form must not be empty';
-    }
-
-    return null;
+    return _emptyLeftErrorMsg
+        .andThen(_emptyRightErrorMsg)
+        .andThen(_divisionByZeroErrorMsg)
+        .fold(
+          (errorMsg) => errorMsg,
+          (_) => null,
+        );
   }
+  //  ERROR di textErrorMsg andThen(() => _emptyRightErrorMsg) : the argument type 'either<string, unit> function' can't be assigned to the parameter type 'either<string, dynamic>'
+
+  // String? get textErrorMsg {
+  //   // Memeriksa jika pembagian dengan nol
+  //   if (rightValue == "0" && type == const CalculatorType.divide()) {
+  //     return 'Cannot divide by zero';
+  //   }
+
+  //   // Memeriksa jika nilai kiri kosong
+  //   if (leftValue.isEmpty) {
+  //     return 'Left form must not be empty';
+  //   }
+
+  //   // Memeriksa jika nilai kanan kosong
+  //   if (rightValue.isEmpty) {
+  //     return 'Right form must not be empty';
+  //   }
+
+  //   return null;
+  // }
 
   // Ngerubah 5.0 jdi 5 && ngerubah 1.99999 jadi 1.99
   String? get convertValue {

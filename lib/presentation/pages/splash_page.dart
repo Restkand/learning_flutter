@@ -40,7 +40,13 @@ class SplashPage extends StatelessWidget {
                     AutoRouter.of(context).push(const NewsRoute());
                   },
                   title: 'News',
-                  desc: 'Up to Date News')
+                  desc: 'Up to Date News'),
+              ActionText(
+                  onTap: () {
+                    AutoRouter.of(context).push(const TimeRoute());
+                  },
+                  title: 'Time',
+                  desc: 'Remembering what time is it?')
             ],
           )),
     );
