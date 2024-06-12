@@ -11,7 +11,7 @@ class TimeState with _$TimeState {
     required String amPm,
   }) = _TimeState;
 
-  factory TimeState.initial() => TimeState(
+  factory TimeState.initial() => const TimeState(
         hour: '12',
         minute: '00',
         second: '00',
