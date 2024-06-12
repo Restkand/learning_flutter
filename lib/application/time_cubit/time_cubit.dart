@@ -20,6 +20,7 @@ class TimeCubit extends Cubit<TimeState> {
             : now.hour == 0
                 ? 12
                 : now.hour),
+        // hour: _formatDigit(now.hour),
         minute: _formatDigit(now.minute),
         second: _formatDigit(now.second),
         amPm: now.hour >= 12 ? 'PM' : 'AM',

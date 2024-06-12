@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:student_lecture_app/application/time_cubit/time_cubit.dart';
 import 'package:student_lecture_app/application/time_cubit/time_state.dart';
+import 'package:student_lecture_app/presentation/widgets/organisms/ui_helper.dart';
 
 class FlipView extends StatelessWidget {
   final String label;
@@ -66,23 +67,41 @@ class TimePageState extends State<TimePage> {
           child: Center(
             child: BlocBuilder<TimeCubit, TimeState>(
               builder: (context, state) {
-                return Row(
+                return Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    _buildFlipViewWithBackground(state.hour),
-                    colonText(),
-                    _buildFlipViewWithBackground(state.minute),
-                    colonText(),
-                    _buildFlipViewWithBackground(state.second),
-                    const SizedBox(width: 10),
-                    Column(
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        _buildFlipViewWithBackground(state.hour),
+                        colonText(),
+                        _buildFlipViewWithBackground(state.minute),
+                        colonText(),
+                        _buildFlipViewWithBackground(state.second),
+                        UIHelper.horizontalSpace(10),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              state.amPm,
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 40,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    UIHelper.verticalSpace(40), // Space between the two rows
+                    const Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          state.amPm,
-                          style: const TextStyle(
+                          'Ashar : 12:05',
+                          style: TextStyle(
                             color: Colors.white,
-                            fontSize: 40,
+                            fontSize: 20,
                           ),
                         ),
                       ],
